@@ -2,7 +2,7 @@
 Modelos Pydantic para validação e documentação da API
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
@@ -23,8 +23,8 @@ class Book(BaseModel):
     image_url: str = Field(..., description="URL da imagem da capa")
     scraped_at: str = Field(..., description="Data/hora da coleta (ISO format)")
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "id": 1,
                 "title": "A Light in the Attic",
@@ -40,6 +40,7 @@ class Book(BaseModel):
                 "scraped_at": "2024-01-15T10:30:00",
             }
         }
+    )
 
 
 class BookList(BaseModel):
@@ -55,8 +56,7 @@ class BookList(BaseModel):
         ..., description="Lista de livros da página", alias="livros"
     )
 
-    class Config:
-        populate_by_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class Genre(BaseModel):
@@ -67,8 +67,7 @@ class Genre(BaseModel):
         ..., description="Número de livros na categoria", alias="contagem"
     )
 
-    class Config:
-        populate_by_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class GenreList(BaseModel):
@@ -79,8 +78,7 @@ class GenreList(BaseModel):
         ..., description="Lista de categorias", alias="generos"
     )
 
-    class Config:
-        populate_by_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class HealthResponse(BaseModel):
@@ -97,8 +95,7 @@ class HealthResponse(BaseModel):
         ..., description="Indica se os dados foram carregados", alias="dados_carregados"
     )
 
-    class Config:
-        populate_by_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class StatsResponse(BaseModel):
@@ -131,5 +128,4 @@ class StatsResponse(BaseModel):
         alias="media_avaliacao_normalizada",
     )
 
-    class Config:
-        populate_by_name = True
+    model_config = ConfigDict(populate_by_name=True)

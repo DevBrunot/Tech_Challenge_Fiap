@@ -10,7 +10,7 @@ from typing import List, Optional
 import pandas as pd
 from pathlib import Path
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from api.models import Book, BookList, GenreList, StatsResponse, HealthResponse
 from api.utils import load_books_data, filter_books, sort_books, search_books
@@ -71,7 +71,7 @@ async def health_check():
     """Endpoint de verificação de saúde da API"""
     return {
         "status": "saudavel",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "total_livros": len(BOOKS_DF),
         "dados_carregados": not BOOKS_DF.empty,
     }
@@ -84,7 +84,7 @@ async def get_books(
     sort: Optional[str] = Query(
         None, description="Campo para ordenação (ex: price, rating, title)"
     ),
-    order: str = Query("asc", regex="^(asc|desc)$", description="Ordem: asc ou desc"),
+    order: str = Query("asc", pattern="^(asc|desc)$", description="Ordem: asc ou desc"),
     category: Optional[str] = Query(None, description="Filtrar por categoria"),
     min_price: Optional[float] = Query(None, ge=0, description="Preço mínimo"),
     max_price: Optional[float] = Query(None, ge=0, description="Preço máximo"),
