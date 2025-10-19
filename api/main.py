@@ -77,6 +77,33 @@ async def health_check():
     }
 
 
+@app.get("/debug", tags=["Debug"])
+async def debug_info():
+    """Endpoint de debug para verificar o ambiente"""
+    import os
+    from pathlib import Path
+    
+    # Verificar se o arquivo existe
+    data_path = Path("data/books.csv")
+    file_exists = data_path.exists()
+    file_size = data_path.stat().st_size if file_exists else 0
+    
+    # Listar arquivos no diretório data
+    data_files = []
+    if Path("data").exists():
+        data_files = [f.name for f in Path("data").iterdir()]
+    
+    return {
+        "arquivo_csv_existe": file_exists,
+        "tamanho_arquivo": file_size,
+        "arquivos_em_data": data_files,
+        "diretorio_atual": str(Path.cwd()),
+        "total_livros_carregados": len(BOOKS_DF),
+        "colunas_dataframe": list(BOOKS_DF.columns) if not BOOKS_DF.empty else [],
+        "primeiras_linhas": BOOKS_DF.head(3).to_dict("records") if not BOOKS_DF.empty else []
+    }
+
+
 @app.get("/books", response_model=BookList, tags=["Books"])
 async def get_books(
     page: int = Query(1, ge=1, description="Número da página"),
