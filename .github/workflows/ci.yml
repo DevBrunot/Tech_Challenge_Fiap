@@ -46,7 +46,17 @@ jobs:
     - name: Format check with black
       run: |
         pip install black==25.9.0
-        black --check . --line-length 127
+        black --version
+        # Format files and check if there are changes
+        black . --line-length 127 --target-version py311
+        # Check if there are any uncommitted changes
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "Files were reformatted by black:"
+          git status --porcelain
+          exit 1
+        else
+          echo "All files are properly formatted"
+        fi
 
     - name: Run tests with pytest
       run: |
