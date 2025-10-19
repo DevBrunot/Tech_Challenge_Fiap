@@ -84,6 +84,7 @@ tramp
 # ===========================================
 # Data files (uncomment if you want to ignore data)
 data/*.csv
+!data/books.csv
 data/*.json
 data/*.xlsx
 data/*.parquet
