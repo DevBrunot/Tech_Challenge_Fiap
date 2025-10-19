@@ -1,0 +1,50 @@
+# Arquivos e diretórios a serem ignorados no deploy da Vercel
+
+# Ambiente virtual
+venv/
+env/
+.venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Testes
+tests/
+.pytest_cache/
+coverage.xml
+htmlcov/
+
+# Logs
+logs/
+*.log
+
+# Arquivos de desenvolvimento
+.git/
+.gitignore
+README.md
+DEPLOY_*.md
+CHANGELOG_*.md
+Makefile
+Procfile
+render.yaml
+
+# Arquivos temporários
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+Dockerfile
+docker-compose.yml
