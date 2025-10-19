@@ -19,7 +19,7 @@ class Book(BaseModel):
     category: str = Field(..., description="Categoria/gênero do livro")
     product_page_url: str = Field(..., description="URL da página do produto")
     upc: str = Field(..., description="Código UPC do produto")
-    description: str = Field(..., description="Descrição do livro")
+    description: Optional[str] = Field(None, description="Descrição do livro")
     image_url: str = Field(..., description="URL da imagem da capa")
     scraped_at: str = Field(..., description="Data/hora da coleta (ISO format)")
 

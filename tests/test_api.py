@@ -20,9 +20,9 @@ def test_root_endpoint(client):
     response = client.get("/")
     assert response.status_code == 200
     data = response.json()
-    assert "message" in data
-    assert "version" in data
-    assert data["version"] == "1.0.0"
+    assert "mensagem" in data
+    assert "versao" in data
+    assert data["versao"] == "1.0.0"
 
 
 def test_health_endpoint(client):
@@ -32,7 +32,7 @@ def test_health_endpoint(client):
     data = response.json()
     assert "status" in data
     assert "timestamp" in data
-    assert "total_books" in data
+    assert "total_livros" in data
 
 
 def test_get_books_pagination(client):
@@ -43,11 +43,11 @@ def test_get_books_pagination(client):
     if response.status_code == 200:
         data = response.json()
         assert "total" in data
-        assert "page" in data
-        assert "per_page" in data
-        assert "books" in data
-        assert data["page"] == 1
-        assert data["per_page"] == 10
+        assert "pagina" in data
+        assert "por_pagina" in data
+        assert "livros" in data
+        assert data["pagina"] == 1
+        assert data["por_pagina"] == 10
 
 
 def test_get_books_with_filters(client):
@@ -57,8 +57,8 @@ def test_get_books_with_filters(client):
 
     if response.status_code == 200:
         data = response.json()
-        assert "books" in data
-        for book in data["books"]:
+        assert "livros" in data
+        for book in data["livros"]:
             assert book["price"] >= 10
             assert book["price"] <= 50
             assert book["rating"] >= 3
@@ -71,7 +71,7 @@ def test_get_books_sorting(client):
 
     if response.status_code == 200:
         data = response.json()
-        books = data["books"]
+        books = data["livros"]
         if len(books) > 1:
             prices = [book["price"] for book in books]
             assert prices == sorted(prices)
@@ -97,7 +97,7 @@ def test_search_books(client):
     if response.status_code == 200:
         data = response.json()
         assert "total" in data
-        assert "books" in data
+        assert "livros" in data
 
 
 def test_get_genres(client):
@@ -108,7 +108,7 @@ def test_get_genres(client):
     if response.status_code == 200:
         data = response.json()
         assert "total" in data
-        assert "genres" in data
+        assert "generos" in data
 
 
 def test_get_books_by_genre(client):
@@ -117,13 +117,13 @@ def test_get_books_by_genre(client):
     genres_response = client.get("/books/genres")
 
     if genres_response.status_code == 200:
-        genres = genres_response.json()["genres"]
+        genres = genres_response.json()["generos"]
         if genres:
-            first_genre = genres[0]["name"]
+            first_genre = genres[0]["nome"]
             response = client.get(f"/books/genre/{first_genre}")
             assert response.status_code == 200
             data = response.json()
-            assert "books" in data
+            assert "livros" in data
 
 
 def test_stats_endpoint(client):
@@ -133,9 +133,9 @@ def test_stats_endpoint(client):
 
     if response.status_code == 200:
         data = response.json()
-        assert "total_books" in data
-        assert "price_stats" in data
-        assert "rating_distribution" in data
+        assert "total_livros" in data
+        assert "estatisticas_preco" in data
+        assert "distribuicao_avaliacoes" in data
 
 
 def test_ml_sample_endpoint(client):
@@ -145,8 +145,8 @@ def test_ml_sample_endpoint(client):
 
     if response.status_code == 200:
         data = response.json()
-        assert "sample_size" in data
-        assert "data" in data
+        assert "tamanho_amostra" in data
+        assert "dados" in data
         assert "features" in data
 
 

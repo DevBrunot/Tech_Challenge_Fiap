@@ -38,6 +38,24 @@ def load_books_data(filepath: str = "data/books.csv") -> pd.DataFrame:
             df["rating"] = df["rating"].astype(int)
         if "availability_copies" in df.columns:
             df["availability_copies"] = df["availability_copies"].astype(int)
+        
+        # Tratar valores NaN em campos de texto
+        if "description" in df.columns:
+            df["description"] = df["description"].fillna("")
+        if "title" in df.columns:
+            df["title"] = df["title"].fillna("")
+        if "category" in df.columns:
+            df["category"] = df["category"].fillna("")
+        if "availability" in df.columns:
+            df["availability"] = df["availability"].fillna("")
+        if "product_page_url" in df.columns:
+            df["product_page_url"] = df["product_page_url"].fillna("")
+        if "upc" in df.columns:
+            df["upc"] = df["upc"].fillna("")
+        if "image_url" in df.columns:
+            df["image_url"] = df["image_url"].fillna("")
+        if "scraped_at" in df.columns:
+            df["scraped_at"] = df["scraped_at"].fillna("")
 
         return df
 
