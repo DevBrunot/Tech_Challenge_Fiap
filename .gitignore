@@ -1,0 +1,281 @@
+# ===========================================
+# PYTHON
+# ===========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ===========================================
+# VIRTUAL ENVIRONMENTS
+# ===========================================
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+.venv
+.env
+
+# ===========================================
+# IDEs & EDITORS
+# ===========================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===========================================
+# ENVIRONMENT VARIABLES
+# ===========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# ===========================================
+# DATA & LOGS
+# ===========================================
+# Data files (uncomment if you want to ignore data)
+data/*.csv
+data/*.json
+data/*.xlsx
+data/*.parquet
+!data/.gitkeep
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# ===========================================
+# TESTING & COVERAGE
+# ===========================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ===========================================
+# CACHING & TEMPORARY FILES
+# ===========================================
+# Redis
+dump.rdb
+*.rdb
+
+# Cache
+.cache/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# ===========================================
+# OPERATING SYSTEM
+# ===========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================
+# DOCKER
+# ===========================================
+.dockerignore
+docker-compose.override.yml
+.docker/
+
+# ===========================================
+# DEPLOYMENT & PRODUCTION
+# ===========================================
+# Heroku
+.env.production
+
+# Render
+.env.production
+
+# Fly.io
+.fly/
+
+# Railway
+.railway/
+
+# ===========================================
+# DATABASES
+# ===========================================
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# PostgreSQL
+*.dump
+*.sql
+
+# ===========================================
+# SECURITY & KEYS
+# ===========================================
+# API Keys
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Certificates
+*.crt
+*.cer
+*.der
+
+# ===========================================
+# BACKUP FILES
+# ===========================================
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.tmp
+*.temp
+
+# ===========================================
+# PACKAGE MANAGERS
+# ===========================================
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Poetry
+poetry.lock
+
+# Pipenv
+Pipfile.lock
+
+# ===========================================
+# DOCUMENTATION
+# ===========================================
+# Sphinx
+docs/_build/
+.readthedocs.yml
+
+# ===========================================
+# MACHINE LEARNING
+# ===========================================
+# Models
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.model
+models/
+checkpoints/
+
+# Data
+datasets/
+*.npy
+*.npz
+
+# ===========================================
+# MONITORING & ANALYTICS
+# ===========================================
+# Sentry
+.sentryclirc
+
+# ===========================================
+# CUSTOM PROJECT FILES
+# ===========================================
+# Add any project-specific files to ignore here
+# Example:
+# config/local.py
+# secrets/
+# uploads/
