@@ -19,6 +19,7 @@ tests/
 coverage.xml
 htmlcov/
 requirements-dev.txt
+test_ci.py
 .github/
 
 # Logs
