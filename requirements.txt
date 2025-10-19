@@ -1,32 +1,20 @@
 # Core dependencies
-fastapi>=0.104.0
-uvicorn[standard]>=0.24.0
-pydantic>=2.5.0
-pydantic-settings>=2.1.0
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
 
 # Web Scraping
-requests>=2.31.0
-beautifulsoup4>=4.12.0
-lxml>=4.9.0
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml==4.9.3
 
-# Data Processing (versões compatíveis com Python 3.13)
-pandas>=2.1.0
-numpy>=1.26.0
-
-# Caching (optional but recommended)
-redis>=5.0.0
-python-json-logger>=2.0.0
-
-# Testing
-pytest>=7.4.0
-pytest-cov>=4.1.0
-httpx>=0.25.0
-
-# Code Quality
-flake8>=6.1.0
-black>=23.11.0
+# Data Processing
+pandas==2.1.4
+numpy==1.26.2
 
 # Logging
-python-dotenv>=1.0.0
+python-dotenv==1.0.0
+python-json-logger==2.0.7
 
 

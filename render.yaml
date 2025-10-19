@@ -4,9 +4,10 @@ services:
     name: books-api
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT --workers 1"
     healthCheckPath: /health
+    autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -14,4 +15,6 @@ services:
         value: 0.0.0.0
       - key: ENVIRONMENT
         value: production
+      - key: PORT
+        value: 10000
 
