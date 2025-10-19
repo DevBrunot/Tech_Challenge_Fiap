@@ -43,12 +43,12 @@ jobs:
         # Exit-zero treats all errors as warnings
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: Format check with black
-      run: |
-        pip install black==25.9.0
-        black --version
-        echo "Skipping black format check for now - files are already formatted"
-        # black . --line-length 127 --target-version py311
+    # - name: Format check with black
+    #   run: |
+    #     pip install black==25.9.0
+    #     black --version
+    #     echo "Skipping black format check for now - files are already formatted"
+    #     # black . --line-length 127 --target-version py311
 
     - name: Run tests with pytest
       run: |
