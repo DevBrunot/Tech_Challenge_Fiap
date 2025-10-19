@@ -1,0 +1,14 @@
+# Dependências de desenvolvimento e teste
+# Use: pip install -r requirements-dev.txt
+
+# Inclui todas as dependências de produção
+-r requirements.txt
+
+# Dependências de teste
+pytest==7.4.3
+pytest-cov==4.1.0
+httpx==0.25.2
+
+# Dependências de desenvolvimento
+black>=23.11.0
+flake8>=6.1.0

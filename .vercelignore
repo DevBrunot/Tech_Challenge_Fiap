@@ -13,11 +13,13 @@ __pycache__/
 .Python
 *.so
 
-# Testes
+# Testes e desenvolvimento
 tests/
 .pytest_cache/
 coverage.xml
 htmlcov/
+requirements-dev.txt
+.github/
 
 # Logs
 logs/
