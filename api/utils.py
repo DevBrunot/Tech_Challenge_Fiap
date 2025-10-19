@@ -117,8 +117,8 @@ def search_books(df: pd.DataFrame, query: str) -> pd.DataFrame:
     query_lower = query.lower()
 
     # Busca em título e descrição
-    mask = df["title"].str.lower().str.contains(query_lower, na=False) | df["description"].str.lower().str.contains(
-        query_lower, na=False
-    )
+    mask = df["title"].str.lower().str.contains(query_lower, na=False) | df[
+        "description"
+    ].str.lower().str.contains(query_lower, na=False)
 
     return df[mask]

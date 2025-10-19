@@ -104,7 +104,9 @@ class BooksAPIClient:
     def get_books_by_genre(self, genre: str, page: int = 1, per_page: int = 20) -> Dict:
         """Lista livros de uma categoria específica"""
         params = {"page": page, "per_page": per_page}
-        response = self.session.get(f"{self.base_url}/books/genre/{genre}", params=params)
+        response = self.session.get(
+            f"{self.base_url}/books/genre/{genre}", params=params
+        )
         response.raise_for_status()
         return response.json()
 
@@ -171,7 +173,9 @@ def example_filtering():
     client = BooksAPIClient()
 
     # Filtrar por preço e rating
-    books = client.get_books(min_price=20, max_price=40, min_rating=4, sort="price", order="asc", per_page=5)
+    books = client.get_books(
+        min_price=20, max_price=40, min_rating=4, sort="price", order="asc", per_page=5
+    )
 
     print(f"\n💎 Livros bem avaliados (rating ≥ 4) entre £20-40:")
     for book in books["books"]:
@@ -290,8 +294,12 @@ def example_ml_integration():
     df = pd.DataFrame(ml_data["data"])
 
     print(f"\n\n📊 Features Engenheiradas:")
-    print(f"  - price_normalized: {df['price_normalized'].min():.2f} - {df['price_normalized'].max():.2f}")
-    print(f"  - rating_normalized: {df['rating_normalized'].min():.2f} - {df['rating_normalized'].max():.2f}")
+    print(
+        f"  - price_normalized: {df['price_normalized'].min():.2f} - {df['price_normalized'].max():.2f}"
+    )
+    print(
+        f"  - rating_normalized: {df['rating_normalized'].min():.2f} - {df['rating_normalized'].max():.2f}"
+    )
     print(f"  - price_category: {df['price_category'].unique().tolist()}")
 
     print(f"\n\n💡 Use estes dados para:")

@@ -48,8 +48,12 @@ class BookList(BaseModel):
     total: int = Field(..., description="Total de livros encontrados", alias="total")
     pagina: int = Field(..., description="Página atual", alias="pagina")
     por_pagina: int = Field(..., description="Itens por página", alias="por_pagina")
-    total_paginas: int = Field(..., description="Total de páginas", alias="total_paginas")
-    livros: List[Book] = Field(..., description="Lista de livros da página", alias="livros")
+    total_paginas: int = Field(
+        ..., description="Total de páginas", alias="total_paginas"
+    )
+    livros: List[Book] = Field(
+        ..., description="Lista de livros da página", alias="livros"
+    )
 
     class Config:
         populate_by_name = True
@@ -59,7 +63,9 @@ class Genre(BaseModel):
     """Modelo de gênero/categoria"""
 
     nome: str = Field(..., description="Nome da categoria", alias="nome")
-    contagem: int = Field(..., description="Número de livros na categoria", alias="contagem")
+    contagem: int = Field(
+        ..., description="Número de livros na categoria", alias="contagem"
+    )
 
     class Config:
         populate_by_name = True
@@ -69,7 +75,9 @@ class GenreList(BaseModel):
     """Lista de gêneros/categorias"""
 
     total: int = Field(..., description="Total de categorias", alias="total")
-    generos: List[Genre] = Field(..., description="Lista de categorias", alias="generos")
+    generos: List[Genre] = Field(
+        ..., description="Lista de categorias", alias="generos"
+    )
 
     class Config:
         populate_by_name = True
@@ -79,9 +87,15 @@ class HealthResponse(BaseModel):
     """Resposta do health check"""
 
     status: str = Field(..., description="Status da aplicação", alias="status")
-    timestamp: str = Field(..., description="Timestamp da verificação", alias="timestamp")
-    total_livros: int = Field(..., description="Total de livros carregados", alias="total_livros")
-    dados_carregados: bool = Field(..., description="Indica se os dados foram carregados", alias="dados_carregados")
+    timestamp: str = Field(
+        ..., description="Timestamp da verificação", alias="timestamp"
+    )
+    total_livros: int = Field(
+        ..., description="Total de livros carregados", alias="total_livros"
+    )
+    dados_carregados: bool = Field(
+        ..., description="Indica se os dados foram carregados", alias="dados_carregados"
+    )
 
     class Config:
         populate_by_name = True
@@ -91,18 +105,30 @@ class StatsResponse(BaseModel):
     """Estatísticas agregadas dos dados"""
 
     total_livros: int = Field(..., description="Total de livros", alias="total_livros")
-    total_categorias: int = Field(..., description="Total de categorias", alias="total_categorias")
-    estatisticas_preco: Dict[str, float] = Field(..., description="Estatísticas de preço", alias="estatisticas_preco")
+    total_categorias: int = Field(
+        ..., description="Total de categorias", alias="total_categorias"
+    )
+    estatisticas_preco: Dict[str, float] = Field(
+        ..., description="Estatísticas de preço", alias="estatisticas_preco"
+    )
     distribuicao_avaliacoes: Dict[int, int] = Field(
         ..., description="Distribuição de avaliações", alias="distribuicao_avaliacoes"
     )
-    top_categorias: Dict[str, int] = Field(..., description="Top 10 categorias", alias="top_categorias")
-    faixas_preco: Dict[str, int] = Field(..., description="Distribuição por faixa de preço", alias="faixas_preco")
+    top_categorias: Dict[str, int] = Field(
+        ..., description="Top 10 categorias", alias="top_categorias"
+    )
+    faixas_preco: Dict[str, int] = Field(
+        ..., description="Distribuição por faixa de preço", alias="faixas_preco"
+    )
     estatisticas_disponibilidade: Dict[str, int] = Field(
-        ..., description="Estatísticas de disponibilidade", alias="estatisticas_disponibilidade"
+        ...,
+        description="Estatísticas de disponibilidade",
+        alias="estatisticas_disponibilidade",
     )
     media_avaliacao_normalizada: float = Field(
-        ..., description="Média da avaliação normalizada", alias="media_avaliacao_normalizada"
+        ...,
+        description="Média da avaliação normalizada",
+        alias="media_avaliacao_normalizada",
     )
 
     class Config:

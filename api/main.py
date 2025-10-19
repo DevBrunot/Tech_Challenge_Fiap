@@ -81,7 +81,9 @@ async def health_check():
 async def get_books(
     page: int = Query(1, ge=1, description="Número da página"),
     per_page: int = Query(20, ge=1, le=100, description="Livros por página"),
-    sort: Optional[str] = Query(None, description="Campo para ordenação (ex: price, rating, title)"),
+    sort: Optional[str] = Query(
+        None, description="Campo para ordenação (ex: price, rating, title)"
+    ),
     order: str = Query("asc", regex="^(asc|desc)$", description="Ordem: asc ou desc"),
     category: Optional[str] = Query(None, description="Filtrar por categoria"),
     min_price: Optional[float] = Query(None, ge=0, description="Preço mínimo"),
@@ -105,7 +107,13 @@ async def get_books(
     df = BOOKS_DF.copy()
 
     # Aplicar filtros
-    df = filter_books(df, category=category, min_price=min_price, max_price=max_price, min_rating=min_rating)
+    df = filter_books(
+        df,
+        category=category,
+        min_price=min_price,
+        max_price=max_price,
+        min_rating=min_rating,
+    )
 
     # Aplicar ordenação
     if sort:
@@ -173,7 +181,9 @@ async def get_genres():
         raise HTTPException(status_code=503, detail="Dados não disponíveis")
 
     genre_counts = BOOKS_DF["category"].value_counts().to_dict()
-    genres = [{"nome": genre, "contagem": count} for genre, count in genre_counts.items()]
+    genres = [
+        {"nome": genre, "contagem": count} for genre, count in genre_counts.items()
+    ]
 
     return {"total": len(genres), "generos": genres}
 
@@ -198,7 +208,9 @@ async def get_books_by_genre(
     df = BOOKS_DF[BOOKS_DF["category"].str.lower() == genre.lower()]
 
     if df.empty:
-        raise HTTPException(status_code=404, detail=f"Categoria '{genre}' não encontrada")
+        raise HTTPException(
+            status_code=404, detail=f"Categoria '{genre}' não encontrada"
+        )
 
     # Paginação
     total = len(df)
@@ -229,7 +241,9 @@ async def get_book_by_id(book_id: int):
     book = BOOKS_DF[BOOKS_DF["id"] == book_id]
 
     if book.empty:
-        raise HTTPException(status_code=404, detail=f"Livro com ID {book_id} não encontrado")
+        raise HTTPException(
+            status_code=404, detail=f"Livro com ID {book_id} não encontrado"
+        )
 
     return book.iloc[0].to_dict()
 
@@ -269,7 +283,11 @@ async def get_statistics():
 
     # Features engenheiradas
     # Faixas de preço
-    df["price_bin"] = pd.cut(df["price"], bins=[0, 20, 40, 60, 100], labels=["economico", "moderado", "premium", "luxo"])
+    df["price_bin"] = pd.cut(
+        df["price"],
+        bins=[0, 20, 40, 60, 100],
+        labels=["economico", "moderado", "premium", "luxo"],
+    )
     price_bins = df["price_bin"].value_counts().to_dict()
     price_bins = {str(k): int(v) for k, v in price_bins.items()}
 
@@ -315,11 +333,15 @@ async def get_ml_sample(
     df = BOOKS_DF.copy()
 
     # Features engenheiradas
-    df["preco_normalizado"] = (df["price"] - df["price"].min()) / (df["price"].max() - df["price"].min())
+    df["preco_normalizado"] = (df["price"] - df["price"].min()) / (
+        df["price"].max() - df["price"].min()
+    )
     df["avaliacao_normalizada"] = df["rating"] / 5.0
     df["tem_descricao"] = df["description"].str.len() > 0
     df["categoria_preco"] = pd.cut(
-        df["price"], bins=[0, 20, 40, 60, 100], labels=["economico", "moderado", "premium", "luxo"]
+        df["price"],
+        bins=[0, 20, 40, 60, 100],
+        labels=["economico", "moderado", "premium", "luxo"],
     ).astype(str)
 
     # Amostragem

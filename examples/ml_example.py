@@ -9,7 +9,12 @@ import numpy as np
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, classification_report
+from sklearn.metrics import (
+    mean_squared_error,
+    r2_score,
+    accuracy_score,
+    classification_report,
+)
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -27,7 +32,10 @@ class BooksMLPipeline:
         """Carrega dados da API"""
         print(f"📥 Carregando {size} livros da API...")
 
-        response = requests.get(f"{self.api_url}/ml/sample", params={"size": size, "random_state": random_state})
+        response = requests.get(
+            f"{self.api_url}/ml/sample",
+            params={"size": size, "random_state": random_state},
+        )
         response.raise_for_status()
 
         data = response.json()
@@ -42,14 +50,18 @@ class BooksMLPipeline:
         print("\n🔧 Pré-processamento...")
 
         # Encode categoria
-        self.df["category_encoded"] = self.label_encoder.fit_transform(self.df["category"])
+        self.df["category_encoded"] = self.label_encoder.fit_transform(
+            self.df["category"]
+        )
 
         # Criar features adicionais
         self.df["title_length"] = self.df["title"].str.len()
         self.df["desc_length"] = self.df["description"].str.len()
         self.df["has_long_desc"] = (self.df["desc_length"] > 100).astype(int)
 
-        print(f"✅ Features criadas: category_encoded, title_length, desc_length, has_long_desc")
+        print(
+            f"✅ Features criadas: category_encoded, title_length, desc_length, has_long_desc"
+        )
 
     def train_price_predictor(self):
         """Treina modelo para prever preços"""
@@ -58,18 +70,31 @@ class BooksMLPipeline:
         print("=" * 80)
 
         # Features e target
-        X = self.df[["category_encoded", "rating", "availability_copies", "title_length", "desc_length", "has_long_desc"]]
+        X = self.df[
+            [
+                "category_encoded",
+                "rating",
+                "availability_copies",
+                "title_length",
+                "desc_length",
+                "has_long_desc",
+            ]
+        ]
         y = self.df["price"]
 
         # Split
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=42
+        )
 
         print(f"\n📊 Dataset:")
         print(f"  - Treino: {len(X_train)} amostras")
         print(f"  - Teste: {len(X_test)} amostras")
 
         # Treinar
-        model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42, n_jobs=-1)
+        model = RandomForestRegressor(
+            n_estimators=100, max_depth=10, random_state=42, n_jobs=-1
+        )
 
         print(f"\n🏋️  Treinando Random Forest Regressor...")
         model.fit(X_train, y_train)
@@ -85,9 +110,9 @@ class BooksMLPipeline:
         print(f"  - MAE: £{np.mean(np.abs(y_test - y_pred)):.2f}")
 
         # Feature importance
-        feature_importance = pd.DataFrame({"feature": X.columns, "importance": model.feature_importances_}).sort_values(
-            "importance", ascending=False
-        )
+        feature_importance = pd.DataFrame(
+            {"feature": X.columns, "importance": model.feature_importances_}
+        ).sort_values("importance", ascending=False)
 
         print(f"\n🎯 Feature Importance:")
         for _, row in feature_importance.iterrows():
@@ -111,18 +136,30 @@ class BooksMLPipeline:
         print("=" * 80)
 
         # Features e target
-        X = self.df[["price", "category_encoded", "availability_copies", "title_length", "desc_length"]]
+        X = self.df[
+            [
+                "price",
+                "category_encoded",
+                "availability_copies",
+                "title_length",
+                "desc_length",
+            ]
+        ]
         y = self.df["rating"]
 
         # Split
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=42, stratify=y
+        )
 
         print(f"\n📊 Dataset:")
         print(f"  - Treino: {len(X_train)} amostras")
         print(f"  - Teste: {len(X_test)} amostras")
 
         # Treinar
-        model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42, n_jobs=-1)
+        model = RandomForestClassifier(
+            n_estimators=100, max_depth=10, random_state=42, n_jobs=-1
+        )
 
         print(f"\n🏋️  Treinando Random Forest Classifier...")
         model.fit(X_train, y_train)
@@ -136,7 +173,11 @@ class BooksMLPipeline:
 
         # Classification report
         print(f"\n📊 Classification Report:")
-        print(classification_report(y_test, y_pred, target_names=[f"{i} ⭐" for i in range(1, 6)]))
+        print(
+            classification_report(
+                y_test, y_pred, target_names=[f"{i} ⭐" for i in range(1, 6)]
+            )
+        )
 
         # Cross-validation
         cv_scores = cross_val_score(model, X, y, cv=5, scoring="accuracy")
@@ -154,7 +195,16 @@ class BooksMLPipeline:
 
         # Correlações com preço
         price_corr = (
-            self.df[["price", "rating", "availability_copies", "title_length", "desc_length", "category_encoded"]]
+            self.df[
+                [
+                    "price",
+                    "rating",
+                    "availability_copies",
+                    "title_length",
+                    "desc_length",
+                    "category_encoded",
+                ]
+            ]
             .corr()["price"]
             .sort_values(ascending=False)
         )
@@ -168,7 +218,16 @@ class BooksMLPipeline:
 
         # Correlações com rating
         rating_corr = (
-            self.df[["rating", "price", "availability_copies", "title_length", "desc_length", "category_encoded"]]
+            self.df[
+                [
+                    "rating",
+                    "price",
+                    "availability_copies",
+                    "title_length",
+                    "desc_length",
+                    "category_encoded",
+                ]
+            ]
             .corr()["rating"]
             .sort_values(ascending=False)
         )
@@ -188,7 +247,11 @@ class BooksMLPipeline:
 
         # Estatísticas por categoria
         print(f"\n📚 Top 5 Categorias por Preço Médio:")
-        cat_stats = self.df.groupby("category")["price"].agg(["mean", "count"]).sort_values("mean", ascending=False)
+        cat_stats = (
+            self.df.groupby("category")["price"]
+            .agg(["mean", "count"])
+            .sort_values("mean", ascending=False)
+        )
         for cat, row in cat_stats.head().iterrows():
             print(f"  {cat:30s} £{row['mean']:6.2f} ({int(row['count'])} livros)")
 

@@ -17,7 +17,13 @@ def sample_dataframe():
             "price": [10.0, 20.0, 30.0, 40.0, 50.0],
             "rating": [1, 2, 3, 4, 5],
             "category": ["Fiction", "Fiction", "Science", "Science", "History"],
-            "description": ["A great book", "Another book", "Science book", "Tech book", "History book"],
+            "description": [
+                "A great book",
+                "Another book",
+                "Science book",
+                "Tech book",
+                "History book",
+            ],
         }
     )
 
@@ -45,7 +51,9 @@ def test_filter_by_rating(sample_dataframe):
 
 def test_filter_combined(sample_dataframe):
     """Testa múltiplos filtros combinados"""
-    result = filter_books(sample_dataframe, category="Science", min_price=25.0, min_rating=3)
+    result = filter_books(
+        sample_dataframe, category="Science", min_price=25.0, min_rating=3
+    )
     assert len(result) == 2
 
 

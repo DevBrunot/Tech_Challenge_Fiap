@@ -57,7 +57,11 @@ class BooksToScrapeScraper:
         adapter = HTTPAdapter(max_retries=retry_strategy)
         session.mount("http://", adapter)
         session.mount("https://", adapter)
-        session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        session.headers.update(
+            {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            }
+        )
         return session
 
     def _get_page(self, url: str) -> Optional[BeautifulSoup]:
@@ -198,7 +202,9 @@ class BooksToScrapeScraper:
 
                 # Preço
                 price_element = book.find("p", class_="price_color")
-                price = self._extract_price(price_element.text) if price_element else 0.0
+                price = (
+                    self._extract_price(price_element.text) if price_element else 0.0
+                )
 
                 # Rating
                 rating = self._extract_rating(book)
@@ -264,7 +270,9 @@ class BooksToScrapeScraper:
         logger.info(f"Encontradas {len(categories)} categorias")
         return categories
 
-    def _scrape_all_pages_in_category(self, category_url: str, category_name: str) -> List[Dict]:
+    def _scrape_all_pages_in_category(
+        self, category_url: str, category_name: str
+    ) -> List[Dict]:
         """
         Extrai todos os livros de todas as páginas de uma categoria
 
@@ -317,17 +325,25 @@ class BooksToScrapeScraper:
         categories = self._get_all_categories()
 
         for idx, category in enumerate(categories, 1):
-            logger.info(f"Processando categoria {idx}/{len(categories)}: {category['name']}")
-            books = self._scrape_all_pages_in_category(category["url"], category["name"])
+            logger.info(
+                f"Processando categoria {idx}/{len(categories)}: {category['name']}"
+            )
+            books = self._scrape_all_pages_in_category(
+                category["url"], category["name"]
+            )
             all_books.extend(books)
-            logger.info(f"Total de livros extraídos de {category['name']}: {len(books)}")
+            logger.info(
+                f"Total de livros extraídos de {category['name']}: {len(books)}"
+            )
 
         # Adiciona ID único para cada livro
         for idx, book in enumerate(all_books, 1):
             book["id"] = idx
 
         elapsed_time = time.time() - start_time
-        logger.info(f"Scraping concluído! Total: {len(all_books)} livros em {elapsed_time:.2f}s")
+        logger.info(
+            f"Scraping concluído! Total: {len(all_books)} livros em {elapsed_time:.2f}s"
+        )
 
         return all_books
 
