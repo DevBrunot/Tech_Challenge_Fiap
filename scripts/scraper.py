@@ -79,7 +79,7 @@ class BooksToScrapeScraper:
             response = self.session.get(url, timeout=10)
             response.raise_for_status()
             time.sleep(self.delay)  # Rate limiting
-            return BeautifulSoup(response.content, "lxml")
+            return BeautifulSoup(response.content, "html.parser")
         except requests.exceptions.RequestException as e:
             logger.error(f"Erro ao acessar {url}: {e}")
             return None
